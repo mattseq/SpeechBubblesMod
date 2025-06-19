@@ -2,10 +2,13 @@ package net.mattseq.speech_bubbles;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 
+@Mod.EventBusSubscriber(modid = SpeechBubblesMod.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModKeyBindings {
     public static final KeyMapping PUSH_TO_TALK_KEY = new KeyMapping(
             "key.push_to_talk", // The translation key of the key binding's name

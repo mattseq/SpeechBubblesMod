@@ -2,9 +2,6 @@ package net.mattseq.speech_bubbles.networking;
 
 import net.mattseq.speech_bubbles.SpeechBubblesMod;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 

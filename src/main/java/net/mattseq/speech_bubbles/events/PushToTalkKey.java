@@ -28,9 +28,8 @@ public class PushToTalkKey {
 
         boolean isPressed = ModKeyBindings.PUSH_TO_TALK_KEY.isDown();
 
-        // Key was just pressed
+        // Key was pressed
         if (isPressed && !wasPressed) {
-//            Main.startListening();
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
                 try {
                     SpeechRecognizer.startListening();
@@ -40,11 +39,9 @@ public class PushToTalkKey {
             });
         }
 
-        // Key was just released
+        // Key was released
         if (!isPressed && wasPressed) {
-//            Main.stopListening();
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> SpeechRecognizer.stopListening());
-//            SpeechBubblesMod.LOGGER.debug("Transcript: {}", Main.getTranscript());
         }
 
         wasPressed = isPressed;

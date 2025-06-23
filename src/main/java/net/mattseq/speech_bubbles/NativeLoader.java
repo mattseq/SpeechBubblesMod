@@ -1,7 +1,11 @@
 package net.mattseq.speech_bubbles;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
 import java.io.*;
 
+@OnlyIn(Dist.CLIENT)
 public class NativeLoader {
     public static void loadDLL() throws IOException {
         String dllName = "libvosk.dll";

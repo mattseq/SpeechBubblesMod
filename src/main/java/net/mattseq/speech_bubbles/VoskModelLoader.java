@@ -1,6 +1,8 @@
 package net.mattseq.speech_bubbles;
 
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.vosk.Model;
 
 import java.io.FileNotFoundException;
@@ -10,6 +12,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@OnlyIn(Dist.CLIENT)
 public class VoskModelLoader {
 
     private static final String MODELS_DIR_NAME = "models";

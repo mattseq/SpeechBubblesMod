@@ -64,9 +64,6 @@ public class SpeechRenderer {
                 double y = Mth.lerp(partialTicks, player.yOld, player.getY()) - camY + player.getBbHeight() + 1;
                 double z = Mth.lerp(partialTicks, player.zOld, player.getZ()) - camZ;
 
-                float progress = (now - speech.timestamp) / (float) speech.duration;
-//                float alpha = 1.0f - progress;
-//                float scale = 1.0f + 0.2f * (1.0f - progress);
                 float alpha = 1f;
                 float scale = 1.2f;
 

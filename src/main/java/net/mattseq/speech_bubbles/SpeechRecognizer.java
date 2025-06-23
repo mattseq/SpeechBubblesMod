@@ -4,6 +4,8 @@ import net.mattseq.speech_bubbles.networking.ModNetworking;
 import net.mattseq.speech_bubbles.networking.SpeechPacketC2S;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.vosk.LibVosk;
 import org.vosk.LogLevel;
 import org.vosk.Model;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@OnlyIn(Dist.CLIENT)
 public class SpeechRecognizer {
 
     private static final AudioFormat format = new AudioFormat(16000, 16, 1, true, false);
@@ -27,7 +30,7 @@ public class SpeechRecognizer {
     public static void initialize() {
         new Thread(() -> {
             try {
-                // set Vosk log level to DEBUG (optional)
+                // set Vosk log level to DEBUG
                 LibVosk.setLogLevel(LogLevel.DEBUG);
 
                 // load the Vosk model folder (downloaded separately)
@@ -44,6 +47,7 @@ public class SpeechRecognizer {
                 microphone = (TargetDataLine) AudioSystem.getLine(info);
 
                 modelLoaded = true;
+                Minecraft.getInstance().player.sendSystemMessage(Component.literal("Model loaded!"));
             } catch (IOException | LineUnavailableException e) {
                 throw new RuntimeException(e);
             }
@@ -52,6 +56,7 @@ public class SpeechRecognizer {
 
     public static void startListening() throws LineUnavailableException {
         if (!modelLoaded) {
+            Minecraft.getInstance().player.sendSystemMessage(Component.literal("Model is still loading..."));
             SpeechBubblesMod.LOGGER.debug("Model is still loading...");
             return;
         }
@@ -101,14 +106,13 @@ public class SpeechRecognizer {
 
     public static void stopListening() {
         if (!modelLoaded) {
-            SpeechBubblesMod.LOGGER.debug("Model is still loading...");
             return;
         }
 
         listening = false;
         microphone.stop();
         microphone.flush(); // flush any buffered audio
-        microphone.close(); // release the mic line so Vosk finalizes cleanly
+        microphone.close();
     }
 
     public static String extractSpeechText(String input) {

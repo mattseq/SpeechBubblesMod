@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.awt.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @OnlyIn(Dist.CLIENT)
@@ -53,6 +54,7 @@ public class SpeechRenderer {
             for (Map.Entry<UUID, SpeechRenderTracker.SpeechEntry> entry : entries.entrySet()) {
                 SpeechRenderTracker.SpeechEntry speech = entry.getValue();
                 if (now - speech.timestamp > speech.duration) continue;
+                if (Objects.equals(speech.text, "")) continue;
 
                 Player player = mc.level.getPlayerByUUID(entry.getKey());
                 if (player == null || player.isInvisible()) continue;

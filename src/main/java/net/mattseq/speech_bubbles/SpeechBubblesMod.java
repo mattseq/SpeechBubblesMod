@@ -69,8 +69,6 @@ public class SpeechBubblesMod
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             try {
-                // TODO: remove or modify NativeLoader to allow bundled libvosk.dll
-
                 File nativeDll = new File("natives/libvosk.dll");
                 System.load(nativeDll.getAbsolutePath());
                 SpeechBubblesMod.LOGGER.debug("libvosk.dll loaded successfully");

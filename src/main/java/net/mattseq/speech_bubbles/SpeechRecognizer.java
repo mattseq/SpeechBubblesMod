@@ -69,10 +69,8 @@ public class SpeechRecognizer {
                 while (listening) {
                     int bytesRead = microphone.read(buffer, 0, buffer.length);
 
-                    SpeechBubblesMod.LOGGER.debug(String.valueOf(bytesRead));
-
                     if (bytesRead < 0) break;
-//
+
                     if (recognizer.acceptWaveForm(buffer, bytesRead)) {
                         SpeechBubblesMod.LOGGER.debug("Result: " + recognizer.getResult());
                     } else {
@@ -89,7 +87,6 @@ public class SpeechRecognizer {
 
                 String finalResult1 = finalResult;
                 Minecraft.getInstance().execute(() -> {
-                    Minecraft.getInstance().player.sendSystemMessage(Component.literal("Final: " + finalResult1));
                     ModNetworking.CHANNEL.sendToServer(new SpeechPacketC2S(extractSpeechText(finalResult1)));
                 });
 
@@ -123,49 +120,4 @@ public class SpeechRecognizer {
         }
         return "";
     }
-
-//    public static void main(String[] args) throws Exception {
-//        // set Vosk log level to DEBUG (optional)
-//        LibVosk.setLogLevel(LogLevel.DEBUG);
-//
-//        // load the Vosk model folder (downloaded separately)
-//        try (Model model = new Model("C:\\Users\\matth\\Documents\\Minecraft\\mods\\SpeechBubbles\\run\\models\\vosk-model-en-us-0.22")) {
-//
-//            // define audio format matching model requirements (16kHz, 16 bit, mono)
-//            AudioFormat format = new AudioFormat(16000, 16, 1, true, false);
-//
-//            // get the microphone line
-//            DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-//
-//            if (!AudioSystem.isLineSupported(info)) {
-//                System.err.println("Microphone with required format not supported");
-//                System.exit(1);
-//            }
-//
-//            TargetDataLine microphone = (TargetDataLine) AudioSystem.getLine(info);
-//            microphone.open(format);
-//            microphone.start();
-//
-//            System.out.println("Start speaking...");
-//
-//            try (Recognizer recognizer = new Recognizer(model, 16000)) {
-//                byte[] buffer = new byte[4096];
-//
-//                while (true) {
-//                    int bytesRead = microphone.read(buffer, 0, buffer.length);
-//                    if (bytesRead < 0) break;
-//
-//                    if (recognizer.acceptWaveForm(buffer, bytesRead)) {
-//                        System.out.println("Result: " + recognizer.getResult());
-//                    } else {
-//                        System.out.println("Partial: " + recognizer.getPartialResult());
-//                    }
-//                }
-//                System.out.println("Final: " + recognizer.getFinalResult());
-//            }
-//
-//            microphone.stop();
-//            microphone.close();
-//        }
-//    }
 }

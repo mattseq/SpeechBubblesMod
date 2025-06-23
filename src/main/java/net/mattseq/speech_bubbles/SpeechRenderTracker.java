@@ -25,8 +25,6 @@ public class SpeechRenderTracker {
 
     public static void setSpeech(UUID uuid, String text) {
         SPEECH_ENTRIES.put(uuid, new SpeechEntry(text, System.currentTimeMillis(), 3000));
-        SpeechBubblesMod.LOGGER.debug(SPEECH_ENTRIES.toString());
-        SpeechBubblesMod.LOGGER.debug(SPEECH_ENTRIES.get(uuid).text);
     }
 
     public static Map<UUID, SpeechEntry> getEntries() {

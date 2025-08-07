@@ -18,6 +18,10 @@ public class VoskModelLoader {
     private static final String MODELS_DIR_NAME = "models";
     private static final String MODEL_CONFIG_RELATIVE_PATH = "conf/model.conf";
 
+    static {
+        NativeLoader.loadOnce();
+    }
+
     public static Model loadModel() throws IOException {
         Path gameDir = Minecraft.getInstance().gameDirectory.toPath();
         Path modelsDir = gameDir.resolve(MODELS_DIR_NAME);

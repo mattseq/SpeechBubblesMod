@@ -2,7 +2,6 @@ package net.mattseq.speech_bubbles;
 
 import com.mojang.logging.LogUtils;
 import net.mattseq.speech_bubbles.networking.ModNetworking;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -15,8 +14,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
-
-import java.io.File;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SpeechBubblesMod.MODID)
@@ -65,15 +62,6 @@ public class SpeechBubblesMod
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            try {
-                File nativeDll = new File("natives/libvosk.dll");
-                System.load(nativeDll.getAbsolutePath());
-                SpeechBubblesMod.LOGGER.debug("libvosk.dll loaded successfully");
-            } catch (Exception e) {
-                SpeechBubblesMod.LOGGER.debug("libvosk.dll not found in 'natives' folder. Please create 'natives' folder in this instance and download libvosk.dll from this mod's Modrinth/Curseforge page");
-                throw new RuntimeException(e);
-            }
-
             DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> SpeechRecognizer::initialize);
         }
     }

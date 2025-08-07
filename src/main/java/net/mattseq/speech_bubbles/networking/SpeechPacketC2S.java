@@ -28,7 +28,7 @@ public class SpeechPacketC2S {
             ServerPlayer sender = context.getSender();
             if (sender != null) {
                 for (ServerPlayer player : sender.server.getPlayerList().getPlayers()) {
-                    ModNetworking.CHANNEL.sendTo(new SpeechPacketS2C(player.getUUID(), packet.message),
+                    ModNetworking.CHANNEL.sendTo(new SpeechPacketS2C(sender.getUUID(), packet.message),
                             player.connection.connection,
                             NetworkDirection.PLAY_TO_CLIENT);
                 }

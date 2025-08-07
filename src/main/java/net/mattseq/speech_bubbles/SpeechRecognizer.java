@@ -27,6 +27,10 @@ public class SpeechRecognizer {
 
     public static boolean modelLoaded = false;
 
+    static {
+        NativeLoader.loadOnce();
+    }
+
     public static void initialize() {
         new Thread(() -> {
             try {
